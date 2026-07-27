@@ -97,6 +97,45 @@
   .motif{text-align:center;padding:22px 40px 4px}
   .motif img{display:inline-block;height:auto;opacity:.9}
 
+  .open-cta{text-align:center;background:var(--paper);padding:44px 40px 26px}
+  .env-wrap{display:inline-block;cursor:pointer;user-select:none;outline:none}
+  .envelope{position:relative;width:280px;height:182px;margin:0 auto;perspective:1400px}
+  .env-body{position:absolute;inset:0;background:linear-gradient(155deg,#f5efe4,#e9e0d1);
+    border-radius:7px;box-shadow:0 16px 38px rgba(120,100,70,.18)}
+  .env-letter{position:absolute;left:16px;right:16px;top:18px;height:150px;background:#fcf8f0;
+    border-radius:3px;box-shadow:0 5px 14px rgba(0,0,0,.14);display:flex;align-items:center;
+    justify-content:center;z-index:2;transition:transform .75s ease .45s}
+  .env-letter .mono{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:36px;
+    color:#6f4f28;letter-spacing:.04em}
+  .env-letter .mono .amp{font-style:italic;color:#cba86c}
+  .env-pocket{position:absolute;inset:0;background:linear-gradient(#efe8da,#e4dbc9);
+    clip-path:polygon(0 24%,50% 66%,100% 24%,100% 100%,0 100%);border-radius:7px;z-index:3;
+    box-shadow:inset 0 2px 6px rgba(160,140,105,.15)}
+  .env-flap{position:absolute;left:0;top:0;width:100%;height:66%;
+    background:linear-gradient(#f2ecdf,#e7ded0);clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top center;backface-visibility:hidden;z-index:5;
+    filter:drop-shadow(0 2px 3px rgba(150,128,92,.12));
+    transition:transform .8s cubic-bezier(.5,.05,.2,1), z-index 0s .4s}
+  .env-seal{position:absolute;left:50%;top:55%;transform:translate(-50%,-50%);
+    width:74px;height:74px;
+    background:radial-gradient(circle at 38% 32%,#f8f2e8,#ece3d2 66%,#dccfb9);
+    border-radius:49% 51% 52% 48% / 50% 49% 51% 50%;
+    display:flex;align-items:center;justify-content:center;z-index:6;
+    box-shadow:0 6px 13px rgba(120,95,55,.22), inset 0 1px 2px rgba(255,255,255,.75), inset 0 -3px 8px rgba(150,128,92,.28);
+    transition:opacity .35s}
+  .env-seal .crest{width:54px;height:auto;filter:drop-shadow(.5px .6px 0 rgba(255,255,255,.7))}
+  .env-hint{margin-top:18px;font-family:'Montserrat',sans-serif;font-weight:300;
+    letter-spacing:.24em;text-transform:uppercase;font-size:10px;color:var(--muted);
+    transition:opacity .4s;animation:hintPulse 2.4s ease-in-out infinite}
+  @keyframes hintPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  .env-wrap.open .env-flap{transform:rotateX(180deg);z-index:1}
+  .env-wrap.open .env-seal{opacity:0}
+  .env-wrap.open .env-letter{transform:translateY(-60px)}
+  .env-wrap.open .env-hint{opacity:0;animation:none}
+  @media (prefers-reduced-motion:reduce){
+    .env-letter,.env-flap{transition:none}
+    .env-hint{animation:none}
+  }
   /* ---------- HERO ---------- */
   .hero{
     height:620px;
@@ -107,35 +146,48 @@
     justify-content:flex-start;
     align-items:center;
     text-align:center;
-    padding:50px 30px 0;
+    padding:24px 30px 0;
     color:#f3ece0;
   }
   .hero > *{position:relative;z-index:1}
   .hero .names{
-    font-style:italic;
-    font-weight:300;
-    line-height:1.05;
-    font-size:32px;
-    letter-spacing:-.005em;
+    line-height:1;
     text-shadow:0 2px 26px rgba(0,0,0,.55);
   }
-  .hero .names span{display:block}
-  .hero .names .second{margin-left:.35em}
+  .hero .names .nm{
+    display:block;
+    font-family:'Cormorant Garamond',serif;
+    font-style:normal;
+    font-weight:500;
+    text-transform:uppercase;
+    font-size:46px;
+    letter-spacing:.05em;
+  }
+  .hero .names .amp{
+    display:block;
+    font-family:'Cormorant Garamond',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:74px;
+    line-height:.72;
+    margin:2px 0;
+    color:rgba(243,236,224,.55);
+  }
   .hero .date{
     font-family:'Cormorant Garamond',serif;
-    font-weight:300;
-    letter-spacing:.34em;
-    font-size:26px;
-    margin-top:18px;
-    padding-left:.34em;
+    font-style:italic;
+    font-weight:400;
+    letter-spacing:0;
+    font-size:32px;
+    margin-top:4px;
   }
   .hero .theme{
     font-family:'Cormorant Garamond',serif;
     font-style:italic;
-    font-weight:300;
+    font-weight:400;
     font-size:20px;
-    letter-spacing:.01em;
-    margin-top:8px;
+    letter-spacing:0;
+    margin-top:-8px;
     color:#f1e9db;
     text-shadow:0 2px 22px rgba(0,0,0,.45);
   }
@@ -310,7 +362,8 @@
 
   @media (max-width:480px){
     section{padding:48px 30px}
-    .hero .names{font-size:32px}
+    .hero .names .nm{font-size:38px}
+    .hero .names .amp{font-size:64px}
     .timer{font-size:40px;gap:4px}
     .timer .colon{font-size:30px}
     .dc-title{font-size:32px}
@@ -322,13 +375,28 @@
 
   <!-- HERO -->
   <header class="hero photo photo-hero">
-    <h1 class="names">Константин и Елизавета</h1>
+    <h1 class="names"><span class="nm">Константин</span><span class="amp">&amp;</span><span class="nm">Елизавета</span></h1>
     <div class="date">28.08.2026</div>
     <div class="theme">Тёплый вечер любви и света</div>
   </header>
 
+  <!-- OPEN CTA -->
+  <div class="open-cta">
+    <div class="env-wrap" id="envWrap" role="button" tabindex="0" aria-label="Открыть приглашение">
+      <div class="envelope">
+        <div class="env-body"></div>
+        <div class="env-letter"><span class="mono">К<span class="amp">&amp;</span>Е</span></div>
+        <div class="env-pocket"></div>
+        <div class="env-flap"></div>
+        <div class="env-seal"><svg class="crest" viewBox="0 0 64 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g fill="none" stroke="#bdaf95" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round" opacity=".72"><path d="M23 18 l3 -8 3 4.5 3 -7 3 7 3 -4.5 3 8 z"/><path d="M23 18 h18"/><path d="M23 24 h18 v10 c0 12 -9 18 -9 18 c0 0 -9 -6 -9 -18 z"/><path d="M21 29 c-8 -2 -12 5 -6 9 c-3 -5 2 -7 6 -3"/><path d="M21 40 c-7 1 -9 6 -4 9"/><path d="M43 29 c8 -2 12 5 6 9 c3 -5 -2 -7 -6 -3"/><path d="M43 40 c7 1 9 6 4 9"/></g><circle cx="23" cy="10" r="1.1" fill="#bdaf95"/><circle cx="41" cy="10" r="1.1" fill="#bdaf95"/><circle cx="32" cy="4.4" r="1.3" fill="#bdaf95"/><text x="32" y="43" text-anchor="middle" font-family="Cormorant Garamond,serif" font-style="italic" font-size="17" fill="#b0a184" opacity=".8">&amp;</text></svg></div>
+      </div>
+      <div class="env-hint">нажмите, чтобы открыть</div>
+    </div>
+  </div>
+
+
   <!-- INVITATION -->
-  <section class="invite center reveal">
+  <section id="invite" class="invite center reveal">
     <h2>Дорогие родные и близкие!</h2>
     <p class="wed-accent"><b>30.04.2026 г.</b> мы стали мужем и женой</p>
     <p class="body">И теперь хотим отпраздновать это событие с самыми близкими — приглашаем вас на праздничный вечер в честь рождения нашей семьи!</p>
@@ -446,6 +514,20 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }});
   }, { threshold: 0.15 });
   document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+  // ---- Envelope open ----
+  (function(){
+    var w = document.getElementById("envWrap");
+    if (!w) return;
+    function openEnv(){
+      var inv = document.getElementById("invite");
+      if (w.classList.contains("open")){ if(inv) inv.scrollIntoView({behavior:"smooth"}); return; }
+      w.classList.add("open");
+      setTimeout(function(){ if(inv) inv.scrollIntoView({behavior:"smooth"}); }, 950);
+    }
+    w.addEventListener("click", openEnv);
+    w.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); openEnv(); }});
+  })();
 </script>
 </body>
 </html>
